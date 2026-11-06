@@ -15,9 +15,21 @@ badminton/
 └── docker-compose.yml  # Local infrastructure (PostgreSQL 16, Redis 7, Backend, Frontend)
 ```
 
-## Quick Start (Local Development)
+## Quick Start (1-Click Run)
 
-### 1. Prerequisites
+### Cách 1: Khởi động 1-Click trên Windows (Khuyên dùng)
+Chỉ cần **nhấp đúp chuột vào file `start.bat`** (hoặc chạy `./start.ps1` trong PowerShell):
+1. Tự động kiểm tra và khởi động Docker Desktop nếu chưa chạy.
+2. Tự động khởi động container PostgreSQL 16 và Redis 7.
+3. Tự động khởi chạy Backend NestJS API (`http://localhost:4000/api/v1`).
+4. Tự động khởi chạy Frontend Next.js (`http://localhost:3000`).
+5. Tự động mở trình duyệt web.
+
+Để tắt toàn bộ hệ thống khi xong việc, chỉ cần nhấp đúp vào **`stop.bat`**.
+
+---
+
+### Cách 2: Khởi động thủ công từng bước (Manual Development)
 - Node.js v18.17+ or v20.x LTS
 - npm or pnpm
 - Docker & Docker Compose (optional for local DB/Redis)

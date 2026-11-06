@@ -32,12 +32,12 @@ async function main() {
   console.log('✅ Sport seeded:', badminton.name);
 
   // 2. Users
-  const passwordHash = await argon2.hash('Admin@123456');
-  const userPasswordHash = await argon2.hash('Password@123456');
+  const passwordHash = await argon2.hash('Password@123');
+  const userPasswordHash = await argon2.hash('Password@123');
 
   const superAdmin = await prisma.user.upsert({
     where: { email: 'admin@badmintonpro.vn' },
-    update: {},
+    update: { passwordHash },
     create: {
       email: 'admin@badmintonpro.vn',
       passwordHash,
@@ -50,12 +50,25 @@ async function main() {
 
   const organizer1 = await prisma.user.upsert({
     where: { email: 'organizer1@badmintonpro.vn' },
-    update: {},
+    update: { passwordHash: userPasswordHash },
     create: {
       email: 'organizer1@badmintonpro.vn',
       passwordHash: userPasswordHash,
       fullName: 'Trần Ban Tổ Chức',
       phone: '0912345678',
+      role: UserRole.USER,
+      status: UserStatus.ACTIVE,
+    },
+  });
+
+  await prisma.user.upsert({
+    where: { email: 'organizer@badmintonpro.vn' },
+    update: { passwordHash: userPasswordHash },
+    create: {
+      email: 'organizer@badmintonpro.vn',
+      passwordHash: userPasswordHash,
+      fullName: 'Trần Ban Tổ Chức',
+      phone: '0912345679',
       role: UserRole.USER,
       status: UserStatus.ACTIVE,
     },
